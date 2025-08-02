@@ -4,21 +4,21 @@
 # Made by: Mohan Saini
 
 import time
-import sys
 import datetime
+import sys
 import pyttsx3
 import requests
 
-# 🎤 Setup text-to-speech engine
+# text-to-speech
 engine = pyttsx3.init()
 engine.setProperty('rate', 160)  # Speed of speaking
 
-# 🔊 Speak any text
+# Speak any text
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-# 💬 Typing animation for bot responses
+# Typing animation for bot responses
 def slow_type(text, delay=0.03):
     for ch in text:
         sys.stdout.write(ch)
@@ -33,7 +33,7 @@ def respond(text):
 
 # ☁ Get weather for a city using OpenWeatherMap API
 def get_weather(city):
-    API_KEY = "9e0a539b299ecd6b9a1bec204f26210a"  # 🔁 Replace with your actual key
+    API_KEY = "9e0a539b299ecd6b9a1bec204f26210a" 
     URL = f"https://api.openweathermap.org/data/2.5/weather?q=delhi,meerut,bihar&appid=9e0a539b299ecd6b9a1bec204f26210a&units=metric"
     try:
         res = requests.get(URL)
@@ -48,7 +48,7 @@ def get_weather(city):
     except:
         return "Sorry, something went wrong while fetching the weather."
 
-# 🔢 Calculator function to evaluate math expressions
+# Calculator function 
 def calculate_expression(expr):
     try:
         result = eval(expr)
@@ -56,17 +56,17 @@ def calculate_expression(expr):
     except:
         return "Sorry, I couldn't calculate that."
 
-# 👋 Greeting message
+# Greeting message
 greeting = "Hello! I'm DEVBot. Type 'exit' to end the chat.\n"
 respond(greeting)
 
-# 📚 Predefined rule-based responses
+# rule-based responses
 responses = {
     "hi": "Hi there! How can I help you?",
     "hello": "Hello! Nice to meet you.",
     "your name": "I'm DEVBot, your Python chatbot.",
     "how are you": "I'm doing great, thank you!",
-    "joke": "Why don't programmers like nature? Because it has too many bugs! 🐛",
+    "joke": "Why don't programmers like nature? Because it has too many bugs! ",
     "help": "Try typing: hi, your name, time, date, weather, joke, calculator, or exit.",
     "bye": "Goodbye! Have a great day!"
 }
@@ -75,17 +75,17 @@ responses = {
 while True:
     user_input = input("You: ").lower().strip()
 
-    # ❌ Exit
+    # Exit
     if user_input == "exit":
         respond("Bye! Chat ended.")
         break
 
-    # ⏰ Time
+    #  Time
     elif "time" in user_input:
         current_time = datetime.datetime.now().strftime("%I:%M %p")
         respond(f"It's {current_time}")
 
-    # 📅 Date
+    #  Date
     elif "date" in user_input:
         today = datetime.date.today().strftime("%B %d, %Y")
         respond(f"Today is {today}")
@@ -96,16 +96,17 @@ while True:
         weather = get_weather(city)
         respond(weather)
 
-    # 🔢 Calculator
+    # Calculator
     elif "calc" in user_input or "+" in user_input or "-" in user_input or "*" in user_input or "/" in user_input:
         expr = user_input.replace("calculate", "").replace("calculator", "").strip()
         result = calculate_expression(expr)
         respond(result)
 
-    # 💬 Rule-based replies
+    #  Rule-based replies
     elif user_input in responses:
         respond(responses[user_input])
 
-    # ❓ Unknown input
+    # Unknown input
     else:
         respond("I didn't understand that. Try typing 'help'.")
+
